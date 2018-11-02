@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+  
+<mapper namespace="com.lxzl.db.mapper.ServiceinfoMapper" >  
+    <select id="select" parameterType="map" resultType="com.lxzl.db.bean.Serviceinfo">  
+    </select>  
+    <insert id="insert" parameterType="com.lxzl.db.bean.Serviceinfo">
+    </insert>
+    <insert id="insertBatch" parameterType="list">
+    	INSERT INTO 
+    	SERVICEINFO(
+  	         	siid,
+  	         	services,
+  	         	startTime,
+  	         	createTime,
+  	         	updateTime,
+      		)
+   		VALUES
+   		<foreach collection="list" item="item" separator=",">
+    		(
+  	         	#{item.siid},
+  	         	#{item.services},
+  	         	#{item.startTime},
+  	         	#{item.createTime},
+  	         	#{item.updateTime},
+      		)
+    	</foreach>
+    </insert>
+	<update id="updateById" parameterType="com.lxzl.db.bean.Serviceinfo">
+		UPDATE SERVICEINFO
+		   SET 
+  		       siid = #{ siid },
+  		       services = #{ services },
+  		       startTime = #{ startTime },
+  		       createTime = #{ createTime },
+  		       updateTime = #{ updateTime },
+  		 WHERE id = #{id}
+	</update>
+	<delete id="deleteById">
+		DELETE 
+		  FROM SERVICEINFO
+		 WHERE id = #{id}
+	</delete>
+</mapper>  

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lxzl.db.dao.EmployeeMapper" >
+	<select id="select" parameterType="map" resultType="com.lxzl.db.bean.Employee">  
+	</select>
+	
+	<select id="selectById" resultType="com.lxzl.db.transfor.bean.EmployeeBean">    
+		SELECT e.eid AS eid,
+					e.`name` AS name,
+					e.sex AS sex,
+					e.age AS age,
+					ei.img_url AS imgUrl,
+					ei.alias_name AS aliasName,
+					ei.email AS email,
+					ei.phone AS phone
+		  FROM employee e
+		  LEFT JOIN employeeinfo ei
+		         ON e.eid = ei.eid
+     	  WHERE e.eid = #{eid}
+	</select>
+	
+	<select id="selectByCnt" parameterType="map" resultType="com.lxzl.db.transfor.bean.EmployeeBean">  
+		SELECT e.eid AS eid,
+					e.`name` AS name,
+					e.sex AS sex,
+					e.age AS age,
+					ei.img_url AS imgUrl,
+					ei.alias_name AS aliasName,
+					ei.email AS email,
+					ei.phone AS phone
+		  FROM employee e
+		  LEFT JOIN employeeinfo ei
+		         ON e.eid = ei.eid
+     	  LIMIT #{start},#{end}
+	</select>
+	<update id="updateById" parameterType="com.lxzl.db.transfor.bean.EmployeeBean">
+		UPDATE employee
+		   SET `name` = #{name},
+		       sex = #{sex},
+		       age = #{age},
+		   	   update_time = now()
+		 WHERE eid = #{eid}
+	</update>
+	<insert id="insert" parameterType="com.lxzl.db.transfor.bean.EmployeeBean" useGeneratedKeys="true" keyProperty="eid">
+		INSERT INTO
+			employee(
+				name,
+				sex,
+				age,
+				create_time
+			) VALUES (
+				#{name},
+				#{sex},
+				#{age},
+				now()
+			)
+	</insert>
+	<insert id="insertBatch" parameterType="list">
+		INSERT INTO
+			employee(
+				name,
+				sex,
+				age,
+				create_time
+			) VALUES
+		<foreach collection="list" item="item" separator=",">
+			(
+				#{item.name},
+				#{item.sex},
+				#{item.age},
+				now()
+			)
+		</foreach>
+	</insert>
+	<delete id="deleteById">
+		DELETE 
+		  FROM employee
+		 WHERE eid = #{eid}
+	</delete>
+</mapper>
+

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+  
+<mapper namespace="com.lxzl.db.dao.ServicesMapper" >  
+    <select id="select" parameterType="map" resultType="com.lxzl.db.bean.Services">  
+    </select>  
+    <insert id="insert" parameterType="com.lxzl.db.bean.Services">
+    </insert>
+    <insert id="insertBatch" parameterType="list">
+    	INSERT INTO 
+    	SERVICES(
+  	         	sid,
+  	         	company,
+  	         	name,
+  	         	description,
+  	         	createTime,
+  	         	updateTime,
+  	         	projectSet,
+  	         	serviceinfoSet,
+      		)
+   		VALUES
+   		<foreach collection="list" item="item" separator=",">
+    		(
+  	         	#{item.sid},
+  	         	#{item.company},
+  	         	#{item.name},
+  	         	#{item.description},
+  	         	#{item.createTime},
+  	         	#{item.updateTime},
+  	         	#{item.projectSet},
+  	         	#{item.serviceinfoSet},
+      		)
+    	</foreach>
+    </insert>
+	<update id="updateById" parameterType="com.lxzl.db.bean.Services">
+		UPDATE SERVICES
+		   SET 
+  		       sid = #{ sid },
+  		       company = #{ company },
+  		       name = #{ name },
+  		       description = #{ description },
+  		       createTime = #{ createTime },
+  		       updateTime = #{ updateTime },
+  		       projectSet = #{ projectSet },
+  		       serviceinfoSet = #{ serviceinfoSet },
+  		 WHERE id = #{id}
+	</update>
+</mapper>  

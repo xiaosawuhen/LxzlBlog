@@ -1,0 +1,19 @@
+package {{info.mapperPackage}};
+
+import java.util.List;
+import java.util.Map;
+
+import {{info.beanClass}};
+
+public interface {{info.mapperName}} {
+	
+	List<{{info.beanName}}> select(Map<String, String> map);
+
+	Integer insertBatch(List<{{info.beanName}}> list);
+	
+	Integer insert({{info.beanName}} {{info.beanSign}});
+	
+	Integer updateById({{info.beanName}} {{info.beanSign}});
+
+	Integer deleteById(@Param("id") Integer id);
+}

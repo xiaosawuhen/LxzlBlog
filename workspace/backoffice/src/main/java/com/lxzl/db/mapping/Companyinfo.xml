@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lxzl.db.dao.CompanyinfoMapper" >
+	<select id="select" parameterType="map" resultType="com.lxzl.db.bean.Companyinfo">  
+	</select>
+	<update id="updateById" parameterType="com.lxzl.db.transfor.bean.CompanyBean">
+		UPDATE companyinfo
+		   SET address = #{address},
+		   	   tel = #{tel},
+		   	   fax = #{fax},
+		   	   mail = #{mail},
+		   	   update_time = now()
+		 WHERE cid = #{cid}
+	</update>
+	<insert id="insert" parameterType="com.lxzl.db.transfor.bean.CompanyBean">
+		INSERT INTO
+			companyinfo(
+				cid,
+				address,
+				tel,
+				fax,
+				mail,
+				create_time
+			) VALUES (
+				#{cid},
+				#{address},
+				#{tel},
+				#{fax},
+				#{mail},
+				now()
+			)
+	</insert>
+	<insert id="insertBatch" parameterType="list">
+		INSERT INTO
+			USER(
+			name,
+			email
+		)
+		VALUES
+		<foreach collection="list" item="item" separator=",">
+			(
+				#{item.name},
+				#{item.email}
+			)
+		</foreach>
+	</insert>
+</mapper>
+

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lxzl.db.dao.ProjectMapper" >
+	<select id="select" parameterType="map" resultType="com.lxzl.db.bean.Project">  
+	</select>
+	<select id="selectById" resultType="com.lxzl.db.transfor.bean.ProjectBean">  
+		SELECT p.`name` AS name,
+				p.description AS description,
+				p.pid AS pid,
+				pi.img_url AS imgUrl,
+				pi.start_time AS startTime,
+<!--       			DATE_FORMAT(pi.start_time,'%Y-%m-%d %H:%i') as startTimeStr, -->
+<!--       			DATE_FORMAT(pi.end_time,'%Y-%m-%d %H:%i') as endTimeStr, -->
+      			DATE_FORMAT(pi.start_time,'%Y-%m-%d') as startTimeStr,
+      			DATE_FORMAT(pi.end_time,'%Y-%m-%d') as endTimeStr,
+				pi.end_time AS endTime
+		  FROM project p
+		  LEFT JOIN projectinfo pi
+		         ON p.pid = pi.pid
+     	  WHERE p.pid = #{pid}
+	</select>
+	<select id="selectByCnt" parameterType="map" resultType="com.lxzl.db.transfor.bean.ProjectBean">  
+		SELECT p.`name` AS name,
+				p.description AS description,
+				p.pid AS pid,
+				pi.img_url AS imgUrl,
+				pi.start_time AS startTime,
+      			DATE_FORMAT(pi.start_time,'%Y-%m-%d') as startTimeStr,
+      			DATE_FORMAT(pi.end_time,'%Y-%m-%d') as endTimeStr,
+				pi.end_time AS endTime
+		  FROM project p
+		  LEFT JOIN projectinfo pi
+		         ON p.pid = pi.pid
+     	  LIMIT #{start},#{end}
+	</select>
+	<update id="updateById" parameterType="com.lxzl.db.transfor.bean.ProjectBean">
+		UPDATE project
+		   SET `name` = #{name},
+		       description = #{description},
+		   	   update_time = now()
+		 WHERE pid = #{pid}
+	</update>
+	<insert id="insert" parameterType="com.lxzl.db.transfor.bean.ProjectBean" useGeneratedKeys="true" keyProperty="pid">
+		INSERT INTO
+			project(
+				cid,
+				name,
+				description,
+				create_time
+			) VALUES (
+				#{cid},
+				#{name},
+				#{description},
+				now()
+			)
+	</insert>
+	<insert id="insertBatch" parameterType="list">
+		INSERT INTO
+			project(
+				name,
+				description,
+				create_time
+			) VALUES
+		<foreach collection="list" item="item" separator=",">
+			(
+				#{item.name},
+				#{item.description},
+				now()
+			)
+		</foreach>
+	</insert>
+	<delete id="deleteById">
+		DELETE 
+		  FROM project
+		 WHERE pid = #{pid}
+	</delete>
+</mapper>
+

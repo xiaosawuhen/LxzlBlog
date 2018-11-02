@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+  
+<mapper namespace="com.lxzl.db.mapper.CarouselMapper" >  
+    <select id="select" parameterType="map" resultType="com.lxzl.db.bean.Carousel">  
+    </select>  
+    <insert id="insert" parameterType="com.lxzl.db.bean.Carousel">
+    </insert>
+    <insert id="insertBatch" parameterType="list">
+    	INSERT INTO 
+    	CAROUSEL(
+  	         	caid,
+  	         	company,
+  	         	name,
+  	         	shortDescription,
+  	         	description,
+  	         	createTime,
+  	         	updateTime,
+  	         	carouselinfoSet,
+      		)
+   		VALUES
+   		<foreach collection="list" item="item" separator=",">
+    		(
+  	         	#{item.caid},
+  	         	#{item.company},
+  	         	#{item.name},
+  	         	#{item.shortDescription},
+  	         	#{item.description},
+  	         	#{item.createTime},
+  	         	#{item.updateTime},
+  	         	#{item.carouselinfoSet},
+      		)
+    	</foreach>
+    </insert>
+	<update id="updateById" parameterType="com.lxzl.db.bean.Carousel">
+		UPDATE CAROUSEL
+		   SET 
+  		       caid = #{ caid },
+  		       company = #{ company },
+  		       name = #{ name },
+  		       shortDescription = #{ shortDescription },
+  		       description = #{ description },
+  		       createTime = #{ createTime },
+  		       updateTime = #{ updateTime },
+  		       carouselinfoSet = #{ carouselinfoSet },
+  		 WHERE id = #{id}
+	</update>
+	<delete id="deleteById">
+		DELETE 
+		  FROM CAROUSEL
+		 WHERE id = #{id}
+	</delete>
+</mapper>  

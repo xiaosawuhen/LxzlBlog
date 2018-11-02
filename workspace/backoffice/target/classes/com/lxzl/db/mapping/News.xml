@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lxzl.db.dao.NewsMapper" >
+	<select id="select" parameterType="map" resultType="com.lxzl.db.bean.News">  
+	</select>
+	<select id="selectById" resultType="com.lxzl.db.transfor.bean.NewsBean">  
+		SELECT n.nid AS nid,
+				n.cid AS cid,
+				n.title AS title,
+				n.description AS description,
+				ni.img_url AS imgUrl
+		  FROM news n
+		  LEFT JOIN newsinfo ni
+		         ON n.nid = ni.nid
+     	  WHERE n.nid = #{nid}
+	</select>
+	<select id="selectByCnt" parameterType="map" resultType="com.lxzl.db.transfor.bean.NewsBean"> 
+		SELECT n.nid AS nid,
+				n.cid AS cid,
+				n.title AS title,
+				n.description AS description,
+				ni.img_url AS imgUrl
+		  FROM news n
+		  LEFT JOIN newsinfo ni
+		         ON n.nid = ni.nid
+     	  LIMIT #{start},#{end}
+	</select>
+	<update id="updateById" parameterType="com.lxzl.db.transfor.bean.NewsBean">
+		UPDATE news
+		   SET title = #{title},
+		       description = #{description},
+		   	   update_time = now()
+		 WHERE nid = #{nid}
+	</update>
+	<insert id="insert" parameterType="com.lxzl.db.transfor.bean.NewsBean" useGeneratedKeys="true" keyProperty="nid">
+		INSERT INTO
+			news(
+				cid,
+				title,
+				description,
+				create_time
+			) VALUES (
+				#{cid},
+				#{title},
+				#{description},
+				now()
+			)
+	</insert>
+	<insert id="insertBatch" parameterType="list">
+		INSERT INTO
+			news(
+				cid,
+				name,
+				description,
+				create_time
+			) VALUES
+		<foreach collection="list" item="item" separator=",">
+			(
+				#{item.cid},
+				#{item.name},
+				#{item.description},
+				now()
+			)
+		</foreach>
+	</insert>
+	<delete id="deleteById">
+		DELETE 
+		  FROM news
+		 WHERE nid = #{nid}
+	</delete>
+</mapper>
+

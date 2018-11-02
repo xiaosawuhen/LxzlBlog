@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lxzl.db.dao.ServicesMapper" >
+	<select id="select" parameterType="map" resultType="com.lxzl.db.bean.Services">  
+	</select>
+	<select id="selectById" resultType="com.lxzl.db.transfor.bean.ServicesBean">  
+		SELECT s.sid AS sid,
+				s.cid AS cid,
+				s.`name` AS name,
+				s.description AS description,
+     			DATE_FORMAT(si.start_time,'%Y-%m-%d') as startTimeStr,
+				si.img_url AS imgUrl
+		  FROM services s
+		  LEFT JOIN serviceinfo si
+		         ON s.sid = si.sid
+     	  WHERE s.sid = #{sid}
+	</select>
+	<select id="selectByCnt" parameterType="map" resultType="com.lxzl.db.transfor.bean.ServicesBean"> 
+		SELECT s.sid AS sid,
+				s.cid AS cid,
+				s.`name` AS name,
+				s.description AS description,
+     			DATE_FORMAT(si.start_time,'%Y-%m-%d') as startTimeStr,
+				si.img_url AS imgUrl
+		  FROM services s
+		  LEFT JOIN serviceinfo si
+		         ON s.sid = si.sid
+     	  LIMIT #{start},#{end}
+	</select>
+	<update id="updateById" parameterType="com.lxzl.db.transfor.bean.ServicesBean">
+		UPDATE services
+		   SET `name` = #{name},
+		       description = #{description},
+		   	   update_time = now()
+		 WHERE sid = #{sid}
+	</update>
+	<insert id="insert" parameterType="com.lxzl.db.transfor.bean.ServicesBean" useGeneratedKeys="true" keyProperty="sid">
+		INSERT INTO
+			services(
+				cid,
+				name,
+				description,
+				create_time
+			) VALUES (
+				#{cid},
+				#{name},
+				#{description},
+				now()
+			)
+	</insert>
+	<insert id="insertBatch" parameterType="list">
+		INSERT INTO
+			services(
+				cid,
+				name,
+				description,
+				create_time
+			) VALUES
+		<foreach collection="list" item="item" separator=",">
+			(
+				#{item.cid},
+				#{item.name},
+				#{item.description},
+				now()
+			)
+		</foreach>
+	</insert>
+	<delete id="deleteById">
+		DELETE 
+		  FROM services
+		 WHERE sid = #{sid}
+	</delete>
+</mapper>
+

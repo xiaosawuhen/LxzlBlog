@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+  
+<mapper namespace="com.cn.db.mapper.ProjectMapper" >  
+    <select id="select" parameterType="map" resultType="com.cn.db.bean.Project">  
+    </select>  
+    <insert id="insert" parameterType="com.cn.db.bean.Project">
+    </insert>
+    <insert id="insertBatch" parameterType="list">
+    	INSERT INTO 
+    	PROJECT(
+  	         	pid,
+  	         	company,
+  	         	name,
+  	         	description,
+  	         	createTime,
+  	         	updateTime,
+  	         	projectemployeeinfoSet,
+  	         	projectinfoSet,
+      		)
+   		VALUES
+   		<foreach collection="list" item="item" separator=",">
+    		(
+  	         	#{item.pid},
+  	         	#{item.company},
+  	         	#{item.name},
+  	         	#{item.description},
+  	         	#{item.createTime},
+  	         	#{item.updateTime},
+  	         	#{item.projectemployeeinfoSet},
+  	         	#{item.projectinfoSet},
+      		)
+    	</foreach>
+    </insert>
+	<update id="updateById" parameterType="com.cn.db.bean.Project">
+		UPDATE PROJECT
+		   SET 
+  		       pid = #{ pid },
+  		       company = #{ company },
+  		       name = #{ name },
+  		       description = #{ description },
+  		       createTime = #{ createTime },
+  		       updateTime = #{ updateTime },
+  		       projectemployeeinfoSet = #{ projectemployeeinfoSet },
+  		       projectinfoSet = #{ projectinfoSet },
+  		 WHERE id = #{id}
+	</update>
+	<delete id="deleteById">
+		DELETE 
+		  FROM PROJECT
+		 WHERE id = #{id}
+	</delete>
+</mapper>  

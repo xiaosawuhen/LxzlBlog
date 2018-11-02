@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+  
+<mapper namespace="com.cn.db.mapper.EmployeelevelMapper" >  
+    <select id="select" parameterType="map" resultType="com.cn.db.bean.Employeelevel">  
+    </select>  
+    <insert id="insert" parameterType="com.cn.db.bean.Employeelevel">
+    </insert>
+    <insert id="insertBatch" parameterType="list">
+    	INSERT INTO 
+    	EMPLOYEELEVEL(
+  	         	elid,
+  	         	level,
+  	         	name,
+  	         	createTime,
+  	         	updateTime,
+  	         	employeelevelinfoSet,
+      		)
+   		VALUES
+   		<foreach collection="list" item="item" separator=",">
+    		(
+  	         	#{item.elid},
+  	         	#{item.level},
+  	         	#{item.name},
+  	         	#{item.createTime},
+  	         	#{item.updateTime},
+  	         	#{item.employeelevelinfoSet},
+      		)
+    	</foreach>
+    </insert>
+	<update id="updateById" parameterType="com.cn.db.bean.Employeelevel">
+		UPDATE EMPLOYEELEVEL
+		   SET 
+  		       elid = #{ elid },
+  		       level = #{ level },
+  		       name = #{ name },
+  		       createTime = #{ createTime },
+  		       updateTime = #{ updateTime },
+  		       employeelevelinfoSet = #{ employeelevelinfoSet },
+  		 WHERE id = #{id}
+	</update>
+	<delete id="deleteById">
+		DELETE 
+		  FROM EMPLOYEELEVEL
+		 WHERE id = #{id}
+	</delete>
+</mapper>  

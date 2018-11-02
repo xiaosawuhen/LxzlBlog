@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+  
+<mapper namespace="com.lxzl.db.mapper.NewsMapper" >  
+    <select id="select" parameterType="map" resultType="com.lxzl.db.bean.News">  
+    </select>  
+    <insert id="insert" parameterType="com.lxzl.db.bean.News">
+    </insert>
+    <insert id="insertBatch" parameterType="list">
+    	INSERT INTO 
+    	NEWS(
+  	         	nid,
+  	         	company,
+  	         	title,
+  	         	description,
+  	         	createTime,
+  	         	updateTime,
+  	         	newsinfoSet,
+      		)
+   		VALUES
+   		<foreach collection="list" item="item" separator=",">
+    		(
+  	         	#{item.nid},
+  	         	#{item.company},
+  	         	#{item.title},
+  	         	#{item.description},
+  	         	#{item.createTime},
+  	         	#{item.updateTime},
+  	         	#{item.newsinfoSet},
+      		)
+    	</foreach>
+    </insert>
+	<update id="updateById" parameterType="com.lxzl.db.bean.News">
+		UPDATE NEWS
+		   SET 
+  		       nid = #{ nid },
+  		       company = #{ company },
+  		       title = #{ title },
+  		       description = #{ description },
+  		       createTime = #{ createTime },
+  		       updateTime = #{ updateTime },
+  		       newsinfoSet = #{ newsinfoSet },
+  		 WHERE id = #{id}
+	</update>
+	<delete id="deleteById">
+		DELETE 
+		  FROM NEWS
+		 WHERE id = #{id}
+	</delete>
+</mapper>  

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+  
+<mapper namespace="com.cn.db.mapper.CustomerinfoMapper" >  
+    <select id="select" parameterType="map" resultType="com.cn.db.bean.Customerinfo">  
+    </select>  
+    <insert id="insert" parameterType="com.cn.db.bean.Customerinfo">
+    </insert>
+    <insert id="insertBatch" parameterType="list">
+    	INSERT INTO 
+    	CUSTOMERINFO(
+  	         	ciid,
+  	         	customer,
+  	         	aliasName,
+  	         	password,
+  	         	phone,
+  	         	email,
+  	         	createTime,
+  	         	updateTime,
+      		)
+   		VALUES
+   		<foreach collection="list" item="item" separator=",">
+    		(
+  	         	#{item.ciid},
+  	         	#{item.customer},
+  	         	#{item.aliasName},
+  	         	#{item.password},
+  	         	#{item.phone},
+  	         	#{item.email},
+  	         	#{item.createTime},
+  	         	#{item.updateTime},
+      		)
+    	</foreach>
+    </insert>
+	<update id="updateById" parameterType="com.cn.db.bean.Customerinfo">
+		UPDATE CUSTOMERINFO
+		   SET 
+  		       ciid = #{ ciid },
+  		       customer = #{ customer },
+  		       aliasName = #{ aliasName },
+  		       password = #{ password },
+  		       phone = #{ phone },
+  		       email = #{ email },
+  		       createTime = #{ createTime },
+  		       updateTime = #{ updateTime },
+  		 WHERE id = #{id}
+	</update>
+	<delete id="deleteById">
+		DELETE 
+		  FROM CUSTOMERINFO
+		 WHERE id = #{id}
+	</delete>
+</mapper>  

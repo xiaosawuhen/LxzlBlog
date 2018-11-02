@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lxzl.db.dao.CompanyMapper" >
+	<select id="select" parameterType="map" resultType="com.lxzl.db.bean.Company">  
+	</select>
+	
+	<select id="selectByUserName" resultType="com.lxzl.db.bean.Company">  
+		SELECT c.cid
+		  FROM company c
+		  LEFT JOIN companyemployeeinfo epi
+		         ON epi.cid = c.cid
+		  LEFT JOIN employeeinfo ei
+		         ON ei.eid = epi.eid
+		 WHERE ei.alias_name = #{username}
+	</select>
+	
+	<select id="getInfoByName" resultType="com.lxzl.db.transfor.bean.CompanyBean">  
+		SELECT c.`name` AS name,
+					 c.description AS description,
+					 ci.address AS address,
+					 ci.fax AS fax,
+					 ci.mail AS mail,
+					 ci.tel AS tel
+		  FROM company c
+		  LEFT JOIN companyinfo ci
+		         ON ci.cid = c.cid
+     	 WHERE c.`name` = #{name}
+	</select>
+	
+	<select id="selectById" resultType="com.lxzl.db.transfor.bean.CompanyBean">  
+		SELECT c.`name` AS name,
+					c.cid AS cid,
+					 c.description AS description,
+					 ci.address AS address,
+					 ci.fax AS fax,
+					 ci.mail AS mail,
+					 ci.tel AS tel
+		  FROM company c
+		  LEFT JOIN companyinfo ci
+		         ON ci.cid = c.cid
+     	 WHERE c.cid = #{id}
+	</select>
+	
+	<update id="updateById" parameterType="com.lxzl.db.transfor.bean.CompanyBean">
+		UPDATE company
+		   SET `name` = #{name},
+		   	   description = #{description},
+		   	   update_time = now()
+		 WHERE cid = #{cid}
+	</update>
+	<insert id="insert" parameterType="com.lxzl.db.transfor.bean.CompanyBean" useGeneratedKeys="true" keyProperty="cid">
+		INSERT INTO
+			company(
+				name,
+				description,
+				create_time
+			) VALUES (
+				#{name},
+				#{description},
+				now()
+			)
+	</insert>
+	<insert id="insertBatch" parameterType="list">
+		INSERT INTO
+			company(
+				name,
+				description,
+				create_time
+			) VALUES
+		<foreach collection="list" item="item" separator=",">
+			(
+				#{item.name},
+				#{item.description},
+				now()
+			)
+		</foreach>
+	</insert>
+</mapper>
+

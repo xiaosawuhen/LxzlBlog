@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+                           http://www.springframework.org/schema/tx
+                           http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+                           http://www.springframework.org/schema/aop
+                           http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+                           http://www.springframework.org/schema/context
+                           http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+                       
+	<!-- 引入配置文件 -->
+	<bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<!-- <value>classpath*:/spring/jdbc.properties</value> -->
+				<value>/WEB-INF/config/jdbc.properties</value>
+				<value>/WEB-INF/config/project.properties</value>
+			</list>
+		</property>
+		<!-- <property name="location" value="/WEB-INF/config/jdbc.properties" 
+			/> -->
+	</bean>
+	
+	<!-- 自动扫描 -->
+	<context:component-scan base-package="com.lxzl.db,com.lxzl.service,com.lxzl.security" />  
+                           
+	<!-- 数据源设置 -->
+	<!-- <import resource="classpath:data/spring-data.xml"/> -->
+	<import resource="datasource/spring-data.xml"/>
+	
+	<!-- mybatis设置 -->
+	<import resource="mybatis/spring-mybatis.xml"/>
+	
+	<!-- Freemarker设置 -->
+	<import resource="freemarker/spring-freemarker.xml"/>
+	
+	<!-- security设置 -->
+	<import resource="security/spring-security.xml"/>
+
+</beans>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lxzl.db.dao.ProjectinfoMapper" >
+	<select id="select" parameterType="map" resultType="com.lxzl.db.bean.Projectinfo">  
+	</select>
+	<update id="updateById" parameterType="com.lxzl.db.transfor.bean.ProjectBean">
+		UPDATE projectinfo
+		   SET start_time = #{startTime},
+			   img_url = #{imgUrl},
+		       end_time = #{endTime},
+		   	   update_time = now()
+		 WHERE pid = #{pid}
+	</update>
+	<insert id="insert" parameterType="com.lxzl.db.transfor.bean.ProjectBean">
+		INSERT INTO
+			projectinfo(
+				pid,
+				img_url,
+				start_time,
+				end_time,
+				create_time
+			) VALUES (
+				#{pid},
+				#{imgUrl},
+				#{startTime},
+				#{endTime},
+				now()
+			)
+	</insert>
+	<insert id="insertBatch" parameterType="list">
+		INSERT INTO
+			projectinfo(
+				start_time,
+				end_time,
+				create_time
+			) VALUES
+		<foreach collection="list" item="item" separator=",">
+			(
+				#{item.startTime},
+				#{item.endTime},
+				now()
+			)
+		</foreach>
+	</insert>
+	<delete id="deleteById">
+		DELETE 
+		  FROM projectinfo
+		 WHERE pid = #{pid}
+	</delete>
+</mapper>
+

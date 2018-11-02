@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+  
+<mapper namespace="com.cn.db.mapper.CompanyMapper" >  
+    <select id="select" parameterType="map" resultType="com.cn.db.bean.Company">  
+    </select>  
+    <insert id="insert" parameterType="com.cn.db.bean.Company">
+    </insert>
+    <insert id="insertBatch" parameterType="list">
+    	INSERT INTO 
+    	COMPANY(
+  	         	cid,
+  	         	name,
+  	         	description,
+  	         	createTime,
+  	         	updateTime,
+  	         	companyemployeeinfoSet,
+  	         	companyinfoSet,
+  	         	customercompanyinfoSet,
+  	         	projectSet,
+      		)
+   		VALUES
+   		<foreach collection="list" item="item" separator=",">
+    		(
+  	         	#{item.cid},
+  	         	#{item.name},
+  	         	#{item.description},
+  	         	#{item.createTime},
+  	         	#{item.updateTime},
+  	         	#{item.companyemployeeinfoSet},
+  	         	#{item.companyinfoSet},
+  	         	#{item.customercompanyinfoSet},
+  	         	#{item.projectSet},
+      		)
+    	</foreach>
+    </insert>
+	<update id="updateById" parameterType="com.cn.db.bean.Company">
+		UPDATE COMPANY
+		   SET 
+  		       cid = #{ cid },
+  		       name = #{ name },
+  		       description = #{ description },
+  		       createTime = #{ createTime },
+  		       updateTime = #{ updateTime },
+  		       companyemployeeinfoSet = #{ companyemployeeinfoSet },
+  		       companyinfoSet = #{ companyinfoSet },
+  		       customercompanyinfoSet = #{ customercompanyinfoSet },
+  		       projectSet = #{ projectSet },
+  		 WHERE id = #{id}
+	</update>
+	<delete id="deleteById">
+		DELETE 
+		  FROM COMPANY
+		 WHERE id = #{id}
+	</delete>
+</mapper>  

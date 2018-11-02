@@ -1,0 +1,18 @@
+package {{info.servicePackage}};
+
+import java.util.List;
+import {{info.beanClass}};
+
+public interface {{info.serviceName}}{
+
+	Integer insertBatch(List<{{info.beanName}}> list);
+	
+	Integer insert({{info.beanName}} {{info.beanSign}});
+	
+	List<{{info.beanName}}> select(Map<String, String> map);
+	
+	Integer updateById({{info.beanName}} {{info.beanSign}});
+	
+	Integer deleteById(@Param("id") Integer id);
+	
+}

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lxzl.db.dao.CarouselMapper" >
+	<select id="select" parameterType="map" resultType="com.lxzl.db.bean.Carousel">  
+	</select>
+	<select id="selectById" resultType="com.lxzl.db.transfor.bean.CarouselBean">  
+		SELECT ca.caid AS caid,
+					ca.cid AS cid,
+					ca.`name` AS name,
+					ca.short_description AS shortDescription,
+					ca.description AS description,
+					cai.img_url AS imgUrl,
+					cai.link_url AS linkUlr,
+					cai.priority AS priority
+		  FROM carousel ca
+		  LEFT JOIN carouselinfo cai
+				 ON cai.caid = ca.caid
+     	 WHERE ca.caid = #{caid}
+
+	</select>
+	<select id="selectByCnt" parameterType="map" resultType="com.lxzl.db.transfor.bean.CarouselBean">  
+		SELECT ca.caid AS caid,
+					ca.cid AS cid,
+					ca.`name` AS name,
+					ca.short_description AS shortDescription,
+					ca.description AS description,
+					cai.img_url AS imgUrl,
+					cai.link_url AS linkUlr,
+					cai.priority AS priority
+		  FROM carousel ca
+		  LEFT JOIN carouselinfo cai
+				 ON cai.caid = ca.caid
+     	  LIMIT #{start},#{end}
+	</select>
+	<update id="updateById" parameterType="com.lxzl.db.transfor.bean.CarouselBean">
+		UPDATE project
+		   SET `name` = #{name},
+		       short_description = #{shortDescription},
+		       description = #{description},
+		   	   update_time = now()
+		 WHERE caid = #{caid}
+	</update>
+	<insert id="insert" parameterType="com.lxzl.db.transfor.bean.CarouselBean" useGeneratedKeys="true" keyProperty="caid">
+		INSERT INTO
+			carousel(
+				cid,
+				name,
+				short_description,
+				description,
+				create_time
+			) VALUES (
+				#{cid},
+				#{name},
+				#{shortDescription},
+				#{description},
+				now()
+			)
+	</insert>
+	<insert id="insertBatch" parameterType="list">
+		INSERT INTO
+			carousel(
+				cid,
+				name,
+				short_description,
+				description,
+				create_time
+			) VALUES
+		<foreach collection="list" item="item" separator=",">
+			(
+				#{item.cid},
+				#{item.name},
+				#{item.shortDescription},
+				#{item.description},
+				now()
+			)
+		</foreach>
+	</insert>
+	<delete id="deleteById">
+		DELETE 
+		  FROM carousel
+		 WHERE caid = #{caid}
+	</delete>
+</mapper>
+

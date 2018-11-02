@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+  
+<mapper namespace="com.cn.db.mapper.CustomerestimatelevelMapper" >  
+    <select id="select" parameterType="map" resultType="com.cn.db.bean.Customerestimatelevel">  
+    </select>  
+    <insert id="insert" parameterType="com.cn.db.bean.Customerestimatelevel">
+    </insert>
+    <insert id="insertBatch" parameterType="list">
+    	INSERT INTO 
+    	CUSTOMERESTIMATELEVEL(
+  	         	celid,
+  	         	grade,
+  	         	type,
+  	         	createTime,
+  	         	updateTime,
+  	         	customerestimateinfoSet,
+      		)
+   		VALUES
+   		<foreach collection="list" item="item" separator=",">
+    		(
+  	         	#{item.celid},
+  	         	#{item.grade},
+  	         	#{item.type},
+  	         	#{item.createTime},
+  	         	#{item.updateTime},
+  	         	#{item.customerestimateinfoSet},
+      		)
+    	</foreach>
+    </insert>
+	<update id="updateById" parameterType="com.cn.db.bean.Customerestimatelevel">
+		UPDATE CUSTOMERESTIMATELEVEL
+		   SET 
+  		       celid = #{ celid },
+  		       grade = #{ grade },
+  		       type = #{ type },
+  		       createTime = #{ createTime },
+  		       updateTime = #{ updateTime },
+  		       customerestimateinfoSet = #{ customerestimateinfoSet },
+  		 WHERE id = #{id}
+	</update>
+	<delete id="deleteById">
+		DELETE 
+		  FROM CUSTOMERESTIMATELEVEL
+		 WHERE id = #{id}
+	</delete>
+</mapper>  

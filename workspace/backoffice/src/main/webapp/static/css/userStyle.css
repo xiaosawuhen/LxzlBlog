@@ -1,0 +1,97 @@
+
+/* 图片上传样式 开始 */
+.imageUploadArea .user-image {
+	width:100px;
+	height:100px;
+	border-radius:50% ;    
+	margin-top: 20px;
+    margin-right: auto;
+    margin-bottom: 20px;
+    margin-left: auto;
+	cursor: pointer;
+}
+
+.imageUploadArea .user-image ~label {
+	display: block;
+}
+
+.imageUploadArea .user-image-project {
+	width:500px;
+	height:200px;
+/* 	border-radius:50% ;     */
+	margin-top: 20px;
+    margin-right: auto;
+    margin-bottom: 20px;
+    margin-left: auto;
+	cursor: pointer;
+}
+
+.imageUploadArea .user-image-project ~label {
+	display: block;
+}
+
+.imageUploadArea .user-image-services {
+	width:200px;
+	height:200px;
+/* 	border-radius:50% ;     */
+	margin-top: 20px;
+    margin-right: auto;
+    margin-bottom: 20px;
+    margin-left: auto;
+	cursor: pointer;
+}
+
+.imageUploadArea .user-image-services ~label {
+	display: block;
+}
+
+.imageUploadArea .user-image-news {
+	width:200px;
+	height:200px;
+/* 	border-radius:50% ;     */
+	margin-top: 20px;
+    margin-right: auto;
+    margin-bottom: 20px;
+    margin-left: auto;
+	cursor: pointer;
+}
+
+.imageUploadArea .user-image-news ~label {
+	display: block;
+}
+
+.imageUploadArea .user-image-partner {
+	width:200px;
+	height:200px;
+	margin-top: 20px;
+    margin-right: auto;
+    margin-bottom: 20px;
+    margin-left: auto;
+	cursor: pointer;
+}
+
+.imageUploadArea .user-image-partner ~label {
+	display: block;
+}
+
+.imageUploadArea .user-image-input {
+	display: none;
+}
+/* 图片上传样式 结束 */
+
+.user-image-credential {
+	width:100%;
+	height:100%;
+	margin-top: 20px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    margin-left: 20px;
+	cursor: pointer;
+}
+.user-image-credential  ~label{
+    width: 100%;
+    text-align: center;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    margin-left: 20px;
+}

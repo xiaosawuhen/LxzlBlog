@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+  
+<mapper namespace="com.lxzl.db.mapper.PartnerinfoMapper" >  
+    <select id="select" parameterType="map" resultType="com.lxzl.db.bean.Partnerinfo">  
+    </select>  
+    <insert id="insert" parameterType="com.lxzl.db.bean.Partnerinfo">
+    </insert>
+    <insert id="insertBatch" parameterType="list">
+    	INSERT INTO 
+    	PARTNERINFO(
+  	         	piid,
+  	         	partners,
+  	         	imgUrl,
+  	         	createTime,
+  	         	updateTime,
+      		)
+   		VALUES
+   		<foreach collection="list" item="item" separator=",">
+    		(
+  	         	#{item.piid},
+  	         	#{item.partners},
+  	         	#{item.imgUrl},
+  	         	#{item.createTime},
+  	         	#{item.updateTime},
+      		)
+    	</foreach>
+    </insert>
+	<update id="updateById" parameterType="com.lxzl.db.bean.Partnerinfo">
+		UPDATE PARTNERINFO
+		   SET 
+  		       piid = #{ piid },
+  		       partners = #{ partners },
+  		       imgUrl = #{ imgUrl },
+  		       createTime = #{ createTime },
+  		       updateTime = #{ updateTime },
+  		 WHERE id = #{id}
+	</update>
+	<delete id="deleteById">
+		DELETE 
+		  FROM PARTNERINFO
+		 WHERE id = #{id}
+	</delete>
+</mapper>  

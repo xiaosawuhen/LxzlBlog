@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+  
+<mapper namespace="com.lxzl.db.mapper.ProductinfoMapper" >  
+    <select id="select" parameterType="map" resultType="com.lxzl.db.bean.Productinfo">  
+    </select>  
+    <insert id="insert" parameterType="com.lxzl.db.bean.Productinfo">
+    </insert>
+    <insert id="insertBatch" parameterType="list">
+    	INSERT INTO 
+    	PRODUCTINFO(
+  	         	piid,
+  	         	product,
+  	         	imgUrl,
+  	         	createTime,
+  	         	updateTime,
+      		)
+   		VALUES
+   		<foreach collection="list" item="item" separator=",">
+    		(
+  	         	#{item.piid},
+  	         	#{item.product},
+  	         	#{item.imgUrl},
+  	         	#{item.createTime},
+  	         	#{item.updateTime},
+      		)
+    	</foreach>
+    </insert>
+	<update id="updateById" parameterType="com.lxzl.db.bean.Productinfo">
+		UPDATE PRODUCTINFO
+		   SET 
+  		       piid = #{ piid },
+  		       product = #{ product },
+  		       imgUrl = #{ imgUrl },
+  		       createTime = #{ createTime },
+  		       updateTime = #{ updateTime },
+  		 WHERE id = #{id}
+	</update>
+	<delete id="deleteById">
+		DELETE 
+		  FROM PRODUCTINFO
+		 WHERE id = #{id}
+	</delete>
+</mapper>  

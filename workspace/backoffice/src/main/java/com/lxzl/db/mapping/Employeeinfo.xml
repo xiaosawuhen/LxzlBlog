@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lxzl.db.dao.EmployeeinfoMapper" >
+	<select id="select" parameterType="map" resultType="com.lxzl.db.bean.Employeeinfo">  
+	</select>
+	<select id="selectByAliasName" resultType="com.lxzl.db.bean.Employeeinfo">  
+		SELECT  eid AS eid,
+				img_url AS imgUrl,
+		        alias_name AS aliasName,
+		        pwd AS password,
+		        phone AS phone,
+		        email AS email 
+			FROM employeeinfo AS ei
+		 WHERE ei.alias_name = #{aliasName}
+	</select>
+	<update id="updateById" parameterType="com.lxzl.db.transfor.bean.EmployeeBean">
+		UPDATE employeeinfo
+		   SET alias_name = #{aliasName},
+		       img_url = #{imgUrl},
+		       phone = #{phone},
+		       email = #{email},
+		       pwd = #{password},
+		   	   update_time = now()
+		 WHERE eid = #{eid}
+	</update>
+	<insert id="insert" parameterType="com.lxzl.db.transfor.bean.EmployeeBean">
+		INSERT INTO
+			employeeinfo(
+				eid,
+				img_url,
+				alias_name,
+				phone,
+				email,
+				pwd,
+				create_time
+			) VALUES (
+				#{eid},
+				#{imgUrl},
+				#{aliasName},
+				#{phone},
+				#{email},
+				#{password},
+				now()
+			)
+	</insert>
+	<insert id="insertBatch" parameterType="list">
+		INSERT INTO
+			employeeinfo(
+				eid,
+				img_url,
+				alias_name,
+				phone,
+				email,
+				create_time
+			) VALUES
+		<foreach collection="list" item="item" separator=",">
+			(
+				#{item.eid},
+				#{item.imgUrl},
+				#{item.aliasName},
+				#{item.phone},
+				#{item.email},
+				now()
+			)
+		</foreach>
+	</insert>
+	<delete id="deleteById">
+		DELETE 
+		  FROM employeeinfo
+		 WHERE eid = #{eid}
+	</delete>
+</mapper>
+

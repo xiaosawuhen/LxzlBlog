@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+  
+<mapper namespace="com.cn.db.mapper.EmployeeMapper" >  
+    <select id="select" parameterType="map" resultType="com.cn.db.bean.Employee">  
+    </select>  
+    <insert id="insert" parameterType="com.cn.db.bean.Employee">
+    </insert>
+    <insert id="insertBatch" parameterType="list">
+    	INSERT INTO 
+    	EMPLOYEE(
+  	         	edi,
+  	         	name,
+  	         	age,
+  	         	sex,
+  	         	createTime,
+  	         	updateTime,
+  	         	companyemployeeinfoSet,
+  	         	employeeinfoSet,
+  	         	employeelevelinfoSet,
+  	         	employeestatusinfoSet,
+  	         	projectemployeeinfoSet,
+      		)
+   		VALUES
+   		<foreach collection="list" item="item" separator=",">
+    		(
+  	         	#{item.edi},
+  	         	#{item.name},
+  	         	#{item.age},
+  	         	#{item.sex},
+  	         	#{item.createTime},
+  	         	#{item.updateTime},
+  	         	#{item.companyemployeeinfoSet},
+  	         	#{item.employeeinfoSet},
+  	         	#{item.employeelevelinfoSet},
+  	         	#{item.employeestatusinfoSet},
+  	         	#{item.projectemployeeinfoSet},
+      		)
+    	</foreach>
+    </insert>
+	<update id="updateById" parameterType="com.cn.db.bean.Employee">
+		UPDATE EMPLOYEE
+		   SET 
+  		       edi = #{ edi },
+  		       name = #{ name },
+  		       age = #{ age },
+  		       sex = #{ sex },
+  		       createTime = #{ createTime },
+  		       updateTime = #{ updateTime },
+  		       companyemployeeinfoSet = #{ companyemployeeinfoSet },
+  		       employeeinfoSet = #{ employeeinfoSet },
+  		       employeelevelinfoSet = #{ employeelevelinfoSet },
+  		       employeestatusinfoSet = #{ employeestatusinfoSet },
+  		       projectemployeeinfoSet = #{ projectemployeeinfoSet },
+  		 WHERE id = #{id}
+	</update>
+	<delete id="deleteById">
+		DELETE 
+		  FROM EMPLOYEE
+		 WHERE id = #{id}
+	</delete>
+</mapper>  

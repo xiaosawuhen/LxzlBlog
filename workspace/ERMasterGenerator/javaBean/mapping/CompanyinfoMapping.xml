@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+  
+<mapper namespace="com.cn.db.mapper.CompanyinfoMapper" >  
+    <select id="select" parameterType="map" resultType="com.cn.db.bean.Companyinfo">  
+    </select>  
+    <insert id="insert" parameterType="com.cn.db.bean.Companyinfo">
+    </insert>
+    <insert id="insertBatch" parameterType="list">
+    	INSERT INTO 
+    	COMPANYINFO(
+  	         	ciid,
+  	         	company,
+  	         	address,
+  	         	tel,
+  	         	fax,
+  	         	mail,
+  	         	createTime,
+  	         	updateTime,
+      		)
+   		VALUES
+   		<foreach collection="list" item="item" separator=",">
+    		(
+  	         	#{item.ciid},
+  	         	#{item.company},
+  	         	#{item.address},
+  	         	#{item.tel},
+  	         	#{item.fax},
+  	         	#{item.mail},
+  	         	#{item.createTime},
+  	         	#{item.updateTime},
+      		)
+    	</foreach>
+    </insert>
+	<update id="updateById" parameterType="com.cn.db.bean.Companyinfo">
+		UPDATE COMPANYINFO
+		   SET 
+  		       ciid = #{ ciid },
+  		       company = #{ company },
+  		       address = #{ address },
+  		       tel = #{ tel },
+  		       fax = #{ fax },
+  		       mail = #{ mail },
+  		       createTime = #{ createTime },
+  		       updateTime = #{ updateTime },
+  		 WHERE id = #{id}
+	</update>
+	<delete id="deleteById">
+		DELETE 
+		  FROM COMPANYINFO
+		 WHERE id = #{id}
+	</delete>
+</mapper>  

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+  
+<mapper namespace="com.cn.db.mapper.CustomerMapper" >  
+    <select id="select" parameterType="map" resultType="com.cn.db.bean.Customer">  
+    </select>  
+    <insert id="insert" parameterType="com.cn.db.bean.Customer">
+    </insert>
+    <insert id="insertBatch" parameterType="list">
+    	INSERT INTO 
+    	CUSTOMER(
+  	         	cid,
+  	         	name,
+  	         	age,
+  	         	sex,
+  	         	createTime,
+  	         	updateTime,
+  	         	customercompanyinfoSet,
+  	         	customerestimateinfoSet,
+  	         	customerinfoSet,
+  	         	customerlevelinfoSet,
+      		)
+   		VALUES
+   		<foreach collection="list" item="item" separator=",">
+    		(
+  	         	#{item.cid},
+  	         	#{item.name},
+  	         	#{item.age},
+  	         	#{item.sex},
+  	         	#{item.createTime},
+  	         	#{item.updateTime},
+  	         	#{item.customercompanyinfoSet},
+  	         	#{item.customerestimateinfoSet},
+  	         	#{item.customerinfoSet},
+  	         	#{item.customerlevelinfoSet},
+      		)
+    	</foreach>
+    </insert>
+	<update id="updateById" parameterType="com.cn.db.bean.Customer">
+		UPDATE CUSTOMER
+		   SET 
+  		       cid = #{ cid },
+  		       name = #{ name },
+  		       age = #{ age },
+  		       sex = #{ sex },
+  		       createTime = #{ createTime },
+  		       updateTime = #{ updateTime },
+  		       customercompanyinfoSet = #{ customercompanyinfoSet },
+  		       customerestimateinfoSet = #{ customerestimateinfoSet },
+  		       customerinfoSet = #{ customerinfoSet },
+  		       customerlevelinfoSet = #{ customerlevelinfoSet },
+  		 WHERE id = #{id}
+	</update>
+	<delete id="deleteById">
+		DELETE 
+		  FROM CUSTOMER
+		 WHERE id = #{id}
+	</delete>
+</mapper>  

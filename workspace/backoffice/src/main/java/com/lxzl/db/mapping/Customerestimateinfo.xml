@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lxzl.db.dao.CustomerestimateinfoMapper" >
+	<select id="select" parameterType="map" resultType="com.lxzl.db.bean.Customerestimateinfo">  
+	</select>
+	<insert id="insert" parameterType="com.lxzl.db.bean.Customerestimateinfo">
+	</insert>
+	<insert id="insertBatch" parameterType="list">
+		INSERT INTO
+			USER(
+			name,
+			email
+		)
+		VALUES
+		<foreach collection="list" item="item" separator=",">
+			(
+				#{item.name},
+				#{item.email}
+			)
+		</foreach>
+	</insert>
+</mapper>
+

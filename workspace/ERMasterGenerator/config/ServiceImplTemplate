@@ -1,0 +1,43 @@
+package {{info.serviceImplPackage}};
+
+import java.util.List;
+import java.util.concurrent.CountDownLatch;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import {{info.beanClass}};
+import {{info.mapperClass}};
+import {{info.serviceClass}};
+
+@Service("{{info.serviceSign}}")
+public class {{info.serviceImplName}} implements {{info.serviceName}}{
+	
+	@Autowired
+	{{info.mapperName}} {{info.mapperSign}};
+	
+	public List<{{info.beanName}}> select(Map<String, String> map) {
+		return {{info.mapperSign}}.select(map);
+	}
+
+	@Transactional
+	public Integer insertBatch(List<{{info.mapperName}}> list) {
+		return {{info.mapperSign}}.insertBatch(list);
+	}
+	
+	@Transactional
+	public Integer insert({{info.beanName}} {{info.beanSign}}) {
+		return {{info.mapperSign}}.insert({{info.beanSign}});
+	}
+	
+	@Transactional
+	public Integer updateById({{info.beanName}} {{info.beanSign}}) {
+		return {{info.mapperSign}}.updateById({{info.beanSign}});
+	}
+	
+	@Transactional
+	public Integer deleteById(Integer id) {
+		return {{info.mapperSign}}.deleteById(list);
+	}
+}
